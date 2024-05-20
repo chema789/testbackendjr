@@ -22,11 +22,28 @@ public class AlumnoServicio {
 	@Autowired
 	private CursoRepositorio cursoRepositorio;
 	
-	@Autowired
-	private InscripcionRepositorio inscripcionRepositorio;
-	
 	public List<Alumno> obtenerListaAlumno() {
 		return alumnoRepositorio.findAll();		
+	}
+
+	public Alumno crearAlumno(String nombre) {
+		Alumno alumno = new Alumno();
+		alumno.setNombre(nombre);
+		alumnoRepositorio.save(alumno);
+		return alumno;
+	}
+	
+	public Alumno actualizarAlumno(Integer id, String nombre) throws Exception {
+		Optional<Alumno> alumnoOpt = alumnoRepositorio.findById(id);
+		
+		if(alumnoOpt.isPresent()) {
+			Alumno alumno = alumnoOpt.get();
+			alumno.setNombre(nombre);
+			alumnoRepositorio.save(alumno);
+			return alumno;
+		}else {
+			throw new Exception("No existe alumno con ese ID");
+		}
 	}
 	
 	public boolean estaAprobado(Inscripcion inscripcion){

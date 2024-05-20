@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -14,14 +15,10 @@ import jakarta.persistence.Table;
 public class Alumno {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String nombre;
-	
-	@OneToMany(mappedBy = "alumno")
-	private List<Inscripcion> inscripciones = new ArrayList<>();
-	
 	
 	public int getId() {
 		return id;
@@ -39,14 +36,6 @@ public class Alumno {
 		this.nombre = nombre;
 	}
 
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
-	}
-
-	public void setInscripciones(List<Inscripcion> inscripciones) {
-		this.inscripciones = inscripciones;
-	}
-	
 	@Override
 	public String toString() {
 		return "Alumno [id=" + id + ", nombre=" + nombre + "]";

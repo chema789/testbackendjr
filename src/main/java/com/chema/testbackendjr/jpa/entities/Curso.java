@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -19,13 +20,10 @@ import jakarta.persistence.Table;
 public class Curso {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String nombre;
-	
-	@OneToMany(mappedBy = "curso")
-	private List<Inscripcion> inscripciones = new ArrayList<>();
 	
 	@Enumerated(EnumType.STRING)
 	private TipoCurso tipoCurso;
@@ -46,14 +44,6 @@ public class Curso {
 		this.nombre = nombre;
 	}
 
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
-	}
-
-	public void setInscripciones(List<Inscripcion> inscripciones) {
-		this.inscripciones = inscripciones;
-	}
-
 	public TipoCurso getTipoCurso() {
 		return tipoCurso;
 	}
@@ -62,5 +52,9 @@ public class Curso {
 		this.tipoCurso = tipoCurso;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Curso [id=" + id + ", nombre=" + nombre + ", tipoCurso=" + tipoCurso + "]";
+	}
+
 }
